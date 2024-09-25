@@ -123,4 +123,20 @@ public class UserDao {
 
     }
 
+    public int updateUser(User user) throws SQLException{
+       Connection connection = Database.getConnection();
+       String sql = "UPDATE users SET first_name = ?, last_name = ?, admin = ?, username = ?, password = ? WHERE user_id = ?";
+       PreparedStatement ps = connection.prepareStatement(sql);
+       ps.setString(1, user.getFirstName());
+       ps.setString(2, user.getLastName());
+       ps.setBoolean(3, user.isAdmin());
+       ps.setString(4, user.getUserName());
+       ps.setString(5, user.getPassword());
+       ps.setInt(6, user.getId());
+       int result = ps.executeUpdate();
+       connection.close();
+       return result;
+
+    }
+
 }

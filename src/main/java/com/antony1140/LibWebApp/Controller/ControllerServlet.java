@@ -114,7 +114,7 @@ String pathInfo = req.getPathInfo();
               case "/user":
                   if(pathInfo.equals("/update")){
                       System.out.println(servletPath + pathInfo + " reached");
-                      //updateUser(req, resp)
+                      updateUser(req, resp);
                   }
                   break;
               case "/book":
@@ -240,6 +240,32 @@ String pathInfo = req.getPathInfo();
             System.out.println("User deleted");
         }else{
             System.out.println("Unsuccessful attempt");
+        }
+    }
+
+    private void updateUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException{
+        System.out.println("trying to update user");
+        UserDao dao = new UserDao();
+        BufferedReader br = req.getReader();
+        StringBuilder sb = new StringBuilder();
+        String body = "";
+        while((body = br.readLine()) != null){
+            sb.append(body);
+        }
+        String id = req.getParameter("id");
+        User user = new Gson().fromJson(sb.toString(), User.class);
+        user.setId(parseInt(id));
+        int result = dao.updateUser(user);
+        if (result != 0){
+            String json = new Gson().toJson(user);
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write(json);
+        }
+        else{
+            resp.setContentType("plain/text");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write("404 - There was an error with the request");
         }
     }
 
