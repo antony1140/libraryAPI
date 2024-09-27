@@ -20,7 +20,7 @@ import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
-@WebServlet(name = "Controller", urlPatterns = {"/list", "/user/*", "/book/*", "/main"})
+@WebServlet(name = "Controller", urlPatterns = {"/*", "/list", "/user/*", "/book/*", "/main"})
 public class ControllerServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
