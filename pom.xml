@@ -41,6 +41,35 @@
 
   </dependencies>
   <build>
-    <finalName>LibWebApp</finalName>
+	  <finalName>LibWebApp</finalName>
+	  <pluginManagement>
+		  <plugins>
+			  <plugin>
+				  <artifactId>maven-war-plugin</artifactId>
+				  <configuration>
+					  <attachClasses>true</attachClasses>
+					  <webResources>
+						  <resource>
+							  <directory>src/main/java/com/antony1140/libwebapp</directory>
+							  <filtering>true</filtering>
+						  </resource>
+					  </webResources>
+				  </configuration>
+			  </plugin>
+			  <plugin>
+				  <groupId>org.apache.tomcat.maven</groupId>
+				  <artifactId>tomcat7-maven-plugin</artifactId>
+				  <version>2.2</version>
+				  <configuration>
+					  <server>maven-tomcat-war-deployment-server</server>
+					  <username>root</username>
+					  <password>root</password>
+					  <port>8080</port>   //Configure port number
+					  <url>http://localhost:8080/manager/text</url>
+					  <path>/</path>   //Configure application root URL
+				  </configuration>
+			  </plugin>
+		  </plugins>
+	  </pluginManagement>
   </build>
 </project>
