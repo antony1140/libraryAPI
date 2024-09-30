@@ -49,6 +49,14 @@
         <version>10.1.30</version>
     </dependency>
 
+      <dependency>
+          <groupId>org.apache.tomcat</groupId>
+          <artifactId>catalina</artifactId>
+          <version>6.0.26</version>
+          <scope>provided</scope>
+      </dependency>
+
+
 
   </dependencies>
   <build>
@@ -80,7 +88,34 @@
 					  <path>/</path>   //Configure application root URL
 				  </configuration>
 			  </plugin>
+			  <plugin>
+				  <groupId>org.apache.maven.plugins</groupId>
+				  <artifactId>maven-shade-plugin</artifactId>
+				  <version>3.2.4</version>
+				  <executions>
+					  <execution>
+						  <phase>package</phase>
+						  <goals>
+							  <goal>shade</goal>
+						  </goals>
+						  <configuration>
+							  <transformers>
+								  <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									  <mainClass>com.antony1140.libwebapp.server.server</mainClass>
+								  </transformer>
+							  </transformers>
+							  <shadedArtifactAttached>true</shadedArtifactAttached>
+							  <shadedClassifierName>shaded</shadedClassifierName>
+						  </configuration>
+					  </execution>
+				  </executions>
+			  </plugin>
 		  </plugins>
 	  </pluginManagement>
   </build>
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+	<maven.compiler.target>17</maven.compiler.target>
+	<exec.mainClass>com.antony1140.LibWebApp.server.server</exec.mainClass>
+    </properties>
 </project>
